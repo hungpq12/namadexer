@@ -10,12 +10,13 @@ use crate::{
     Error,
 };
 
+use sqlx::postgres::PgRow as Row;
 use sqlx::Row as TRow;
 
 pub async fn get_txs(
     State(state): State<ServerState>,
     Query(params): Query<HashMap<String, i32>>,
-) -> Result<Json<Vec<TxInfo>>, Error> {
+) -> Result<Json<Option<Vec<TxInfo>>>, Error> {
     info!("calling /tx");
     let num = params.get("num");
 
