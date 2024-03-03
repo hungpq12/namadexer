@@ -15,7 +15,7 @@ use sqlx::Row as TRow;
 pub async fn get_txs(
     State(state): State<ServerState>,
     Query(params): Query<HashMap<String, i32>>,
-) -> Result<Json, Error> {
+) -> Result<Json<Vec[TxInfo]>, Error> {
     info!("calling /tx");
     let num = params.get("num");
     let offset = params.get("offset");
