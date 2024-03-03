@@ -1209,14 +1209,14 @@ impl Database {
     /// Returns Transactions
     pub async fn get_txs(
         &self,
-        num: &i32,
+        num: Option<&i32>,
         offset: Option<&i32>
     ) -> Result<Vec<Row>, Error> {
         // query for transaction with hash
         let str = format!(
             "SELECT * FROM {}.{TX_TABLE_NAME} LIMIT {1} OFFSET {2};",
             self.network,
-            num,
+            num.unwrap_or(&  10),
             offset.unwrap_or(&  0)
         );
 

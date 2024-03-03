@@ -17,7 +17,7 @@ pub async fn get_txs(
     Query(params): Query<HashMap<String, i32>>,
 ) -> Result<Json<Vec<TxInfo>>, Error> {
     info!("calling /tx");
-    let num = params.get("num", 5);
+    let num = params.get("num");
 
     let offset = params.get("offset");
     let mut trx : Vec<TxInfo> = vec![];
