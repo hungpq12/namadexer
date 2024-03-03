@@ -1211,7 +1211,7 @@ impl Database {
         &self,
         num: Option<&i32>,
         offset: Option<&i32>
-    ) -> Result<Vec<Row>, Error> {
+    ) -> Result<Option<Vec<Row>>, Error> {
         // query for transaction with hash
         let str = format!(
             "SELECT * FROM {}.{TX_TABLE_NAME} LIMIT {1} OFFSET {2};",
