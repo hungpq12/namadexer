@@ -26,7 +26,7 @@ pub async fn get_txs(
         trx.push(tx);
     }
 
-    Ok(Json(Some(tx)))
+    Ok(Json(Some(trx)))
 }
 
 pub async fn get_tx_by_hash(
