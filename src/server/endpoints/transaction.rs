@@ -11,6 +11,22 @@ use crate::{
 
 use sqlx::Row as TRow;
 
+pub async fn get_txs(
+    State(state): State<ServerState>,
+    Query(params): Query<HashMap<String, i32>>,
+) -> Result<Json<Option<TxInfo>>, Error> {
+    info!("calling /tx");
+    let num = params.get("num");
+    let offset = params.get("offset");
+    let mut trx : Vec<TxInfo> = vec![];
+    let rows = state.db.get_txs(num, offset).await?;
+    for row in rows.iter() {
+        trx.push(TxInfo::try_from(row)?;
+    }
+
+    Ok(Json(Some(tx)))
+}
+
 pub async fn get_tx_by_hash(
     State(state): State<ServerState>,
     Path(hash): Path<String>,

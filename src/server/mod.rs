@@ -48,6 +48,7 @@ fn server_routes(state: ServerState) -> Router<()> {
         .route("/block/height/:block_height", get(get_block_by_height))
         .route("/block/hash/:block_hash", get(get_block_by_hash))
         .route("/block/last", get(get_last_block))
+        .route("/tx", get(get_txs))
         .route("/tx/:tx_hash", get(get_tx_by_hash))
         .route("/tx/vote_proposal/:proposal_id", get(get_vote_proposal))
         .route("/tx/shielded", get(get_shielded_tx))

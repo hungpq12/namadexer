@@ -1204,4 +1204,25 @@ impl Database {
     pub fn pool(&self) -> &PgPool {
         self.pool.as_ref()
     }
+
+    #[instrument(skip(self))]
+    /// Returns Transactions
+    pub async fn get_txs(
+        &self,
+        num: &i32,
+        offset: Option<&i32>
+    ) -> Result<Option<Row>, Error> {
+        // query for transaction with hash
+        let str = format!(
+            "SELECT * FROM {}.{TX_TABLE_NAME} LIMIT {1} OFFSET {2};",
+            self.network,
+            num,
+            offset.unwrap_or(&  0)
+        );
+
+        query(&str)
+            .fetch_all(&*self.pool)
+            .await
+            .map_err(Error::from)
+    }
 }
