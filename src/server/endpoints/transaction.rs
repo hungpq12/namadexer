@@ -3,6 +3,7 @@ use axum::{
     Json,
 };
 use tracing::info;
+use std::collections::HashMap;
 
 use crate::{
     server::{shielded, ServerState, TxInfo},
@@ -14,7 +15,7 @@ use sqlx::Row as TRow;
 pub async fn get_txs(
     State(state): State<ServerState>,
     Query(params): Query<HashMap<String, i32>>,
-) -> Result<Json<Option<TxInfo>>, Error> {
+) -> Result<Json, Error> {
     info!("calling /tx");
     let num = params.get("num");
     let offset = params.get("offset");
