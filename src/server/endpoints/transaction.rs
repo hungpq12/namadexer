@@ -21,7 +21,8 @@ pub async fn get_txs(
     let mut trx : Vec<TxInfo> = vec![];
     let rows = state.db.get_txs(num, offset).await?;
     for row in rows.iter() {
-        trx.push(TxInfo::try_from(row)?);
+        let tx = TxInfo::try_from(row)?;
+        trx.push(tx);
     }
 
     Ok(Json(Some(tx)))
